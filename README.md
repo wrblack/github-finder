@@ -11,60 +11,26 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Personal note about the Context API
 
-### `npm test`
+Context can be used to share state between multiple components without needing to pass state down through the component tree (component drilling).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Creating Context
 
-### `npm run build`
+The `createContext()` hook takes in an initial state and returns a context. For `alertContext`, the initial state is null.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Using the Reducer
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The Reducer is a function that takes in (`state`, `action`) and returns a plain object. The `state` is our app/component state (e.g., null for Alert). The `action` is usually a constant (that's just a STRING_KINDA_LIKE_THIS that describes what's happening). `action` has two variables, `type` & `payload`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Later in AlertState, we use the `useReducer` hook which returns a tuple: `(State, Dispatch)`. Dispatch is needed to dispatch reducer actions. So we "dispatch" actions, which are our types (e.g., REMOVE_ALERT).
 
-### `npm run eject`
+### Providing Context
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+In AlertState, we provide <AlertContext.Provider> which allows the children props to use its functions (`setAlert()`) which "dispatch" the "actions" (SET_ALERT, REMOVE_ALERT) to the global state.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Later in our Search Component, we use the hook `useContext()` to access the `setAlert()` function "provided" by us from the Context Provider (AlertContext.Provider).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Read more about Context but Simplified
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I made these examples around this page: https://javascript.plainenglish.io/react-context-simplified-86e1e8ce2d73
