@@ -2,10 +2,12 @@ import Search from "../users/Search";
 import Users from "../users/Users";
 
 const Home = () => {
-  <>
-    <Search />
-    <Users />
-  </>;
+  return (
+    <>
+      <Search />
+      <Users />
+    </>
+  );
 };
 
 export default Home;
